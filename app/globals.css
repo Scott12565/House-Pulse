@@ -1,26 +1,68 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme{
+  /* colors */
+  /* === Background system === */
+  --color-ink-black: #0C0D11;
+  --color-dark-matter: #151821;
+  --color-night-slate: #1E2530;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* === Borders === */
+  --color-shadow-line: #2B3440;
+  --color-graphite-frame: #39414B;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+  /* === Text Colors */
+  --color-text-primary: #ECEFF4;
+  --color-text-secondary: #B6BCCB;
+  --color-text-muted: #8A91A6;
+  --color-text-disabled: #5D6478;
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* === Accent Colors === */
+  --color-pulse-violet: #7B61FF;
+  --color-pulse-violet-hover: #6A4DFA;
+  --color-pulse-violet-active: #5C3FF2;
+
+  --color-cyan-echo: #29D4C8;
+  --color-cyan-echo-hover: #1FC2B6;
+  --color-cyan-echo-active: #2A9B8C;
+
+  /* === Status */
+  --color-success: #27C56F;
+  --color-warning: #F2B544;
+  --color-error: #E14B52;
+
+  /* === Typography === */
+
+  /* ===Font Families */
+  --font-body: var(--font-inter);
+  --font-heading: var(--font-space-grotesk);
+  --font-accent: var(--font-sora);
+  --font-dmSans: var(--font-dm-sans);
+
+  /* === Font Sizes (with line-heights) === */
+  --font-size-xs: 0.75rem; /* 12px */
+  --line-height-xs: 1rem; /* 16px */
+
+  --font-size-sm: 0.875rem; /* 14px */
+  --line-height-sm: 1.25rem; /* 20px */
+
+  --font-size-base: 1rem; /* 16px */
+  --line-height-base: 1.5rem; /* 24px */
+
+  --font-size-lg: 1.125rem; /* 18px */
+  --line-height-lg: 1.75rem; /* 28px */
+
+  --font-size-xl: 1.25rem; /* 20px */
+  --line-height-xl: 1.75rem; /* 28px */
+
+    /* === Font Weights === */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semi-bold: 600;
+  --font-weight-bold: 700;
+
+  /* === Letter Spacing */
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.02em;
 }
