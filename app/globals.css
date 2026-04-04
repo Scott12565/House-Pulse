@@ -66,3 +66,8 @@
   --tracking-normal: 0;
   --tracking-wide: 0.02em;
 }
+
+/* hide scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

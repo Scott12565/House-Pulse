@@ -1,10 +1,22 @@
+import FeaturedTracks from '@/components/home/FeaturedTracks'
+import FinalCTA from '@/components/home/FinalCTA';
+import ForArtists from '@/components/home/ForArtists';
+import ForListeners from '@/components/home/ForListeners';
 import Hero from '@/components/home/Hero'
-import React from 'react'
+import TrendingArtists from '@/components/home/TrendingArtists';
+import getTracks from '@/lib/api'
 
-export default function Home() {
+export default async function Home() {
+  const tracks = await getTracks();
+
   return (
-    <div className='bg-ink-black h-screen flex items-center justify-center text-white text-4xl font-bold'>
+    <div className='bg-ink-black w-full'>
       <Hero />
+      <FeaturedTracks tracks={tracks}  />
+      <TrendingArtists />
+      <ForArtists />
+      <ForListeners />
+      <FinalCTA />
     </div>
   )
 }

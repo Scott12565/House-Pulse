@@ -1,14 +1,17 @@
 import Link from "next/link";
 import HeroSlider from "./HeroSlider";
 import getTracks from "@/lib/api";
-import FeaturedTracks from "./FeaturedTracks";
-
+import Container from '@/components/layout/Container'
+import AccentSpot from '@/components/ui/AccentSpot'
 
 export default async function Hero() {
   const tracks = await getTracks();
   return (
-    <main className="relative w-full bg-ink-black overflow-hidden pt-28 sm:pt-32 md:pt-28">
-      <div className="mx-auto max-w-7xl px-6 lg:px-20 py-12 md:py-16 lg:py-20">
+    <section className="relative w-full bg-ink-black overflow-hidden py-20 md:py-28" aria-label="Hero">
+
+      <AccentSpot position="top-right" size={420} color="rgba(14,165,168,0.12)" blur={48} opacity={0.7} />
+
+      <Container>
         <div className="grid md:grid-cols-2 gap-10 items-center">
           {/* Left */}
           <div className="space-y-6">
@@ -49,14 +52,11 @@ export default async function Hero() {
           </div>
 
           {/* Right */}
-          <HeroSlider tracks={tracks} />
+          <div className="relative min-h-[380px] md:min-h-[480px] ">
+            <HeroSlider tracks={tracks} />
+          </div>
         </div>
-
-        {/* === Featured Tracks Section === */}
-        {/* <div>
-          <FeaturedTracks tracks={tracks} />
-        </div> */}
-      </div>
-    </main>
+      </Container>
+    </section>
   );
 }
