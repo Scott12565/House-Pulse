@@ -6,6 +6,7 @@ import AccentSpot from '@/components/ui/AccentSpot'
 
 export default async function Hero() {
   const tracks = await getTracks();
+  
   return (
     <section className="relative w-full bg-ink-black overflow-hidden py-20 md:py-28" aria-label="Hero">
 

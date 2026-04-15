@@ -18,8 +18,8 @@ const TrackSchema = new mongoose.Schema({
     },
     genre: {
         type: String,
+        enum: ["Afro House", "Deep House", "Amapiano", "Tech House", "Techno", "Other"],
         required: true,
-        trim: true,
         index: true,
     },
     bpm: {
@@ -28,7 +28,8 @@ const TrackSchema = new mongoose.Schema({
     },
     key: {
         type: String,
-        trim: true,    
+        trim: true,
+        required: true    
     },
     coverImageUrl: {
         type: String,
@@ -37,15 +38,18 @@ const TrackSchema = new mongoose.Schema({
     audioPreviewUrl: {
         type: String,
         trim: true,
+        required: true,
     },
     audioFileUrl: {
         type: String,
         trim: true,
+        required: true,
+
     },
     isPublished: {
         type: Boolean,
         default: false,
     },
-});
+}, { timestamps: true });
 
 export default mongoose.models.Track || mongoose.model('Track', TrackSchema);

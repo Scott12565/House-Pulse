@@ -43,7 +43,7 @@ export default function HeroSlider({ tracks }) {
       {/* === songs Cards  */}
             <div className="relative overflow-hidden rounded-2xl border border-graphite-frame/60 bg-dark-matter/80 backdrop-blur-sm p-6 shadow-xl transition duration-300 group-hover:scale-[1.02] ">
             <div className="relative overflow-hidden h-[360px] sm:h-[420px] w-full bg-night-slate">
-                <Image src={currentTrack.cover}
+                <Image src={currentTrack.coverImageUrl}
             
                 alt={currentTrack.title}
                 fill
@@ -61,11 +61,11 @@ export default function HeroSlider({ tracks }) {
                 <div className="flex items-start justify-between">
                     <div>
                         <h2 className='text-xl font-bold text-text-primary'>{currentTrack.title}</h2>
-                        <p className="text-sm text-text-muted">{currentTrack.artist}</p>
+                        <p className="text-sm text-text-muted">{currentTrack.artistName}</p>
                     </div>
 
                         <div className="px-4 py-1.5 rounded-full bg-cyan-echo/10 border border-cyan-echo/40 text-sm font-semibold text-cyan-echo backdrop-blur-lg">
-                            {currentTrack.price}
+                            R{currentTrack.priceZar}
                         </div>
                     
                 </div>

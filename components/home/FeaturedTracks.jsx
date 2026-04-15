@@ -31,11 +31,11 @@ export default function FeaturedTracks({ tracks }) {
         {/* === Cards === */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 py-6 gap-6">
           {tracks.map((track) => (
-            <div key={track.id} className="relative group rounded-2xl shadow-lg bg-gradient-to-br from-[#071428] to-[#091020] overflow-hidden">
+            <div key={track._id} className="relative group rounded-2xl shadow-lg bg-gradient-to-br from-[#071428] to-[#091020] overflow-hidden">
               {/* === Image === */}
               <div className="relative overflow-hidden w-full h-[220px] ">
                 <Image
-                  src={track.cover}
+                  src={track.coverImageUrl}
                   alt={track.title}
                   fill
                   className='overflow-hidden object-cover group-hover:scale-110 transition duration-300'
@@ -60,10 +60,10 @@ export default function FeaturedTracks({ tracks }) {
               {/* === Content === */}
               <div className="py-4 px-4">
                 <div className="flex items-center justify-between">
-                  <h4 className="text-lg text-text-primary font-semibold">{track.title}</h4>
-                  <span className="text-cyan-echo text-sm font-medium">{track.price}</span>
+                  <h4 className="text-lg text-text-primary font-semibold">{track.artistName}</h4>
+                  <span className="text-cyan-echo text-sm font-medium">R{track.priceZar}</span>
                 </div>
-                <p className="text-text-muted text-sm mt-1">{track.artist}</p>
+                <p className="text-text-muted text-sm mt-1">{track.title}</p>
               </div>
             </div>
           ))}
