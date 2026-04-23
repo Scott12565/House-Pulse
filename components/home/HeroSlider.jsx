@@ -3,9 +3,13 @@ import { getNextIndex, getPrevIndex } from '@/lib/sliders';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react'
+import { usePlayer } from '../player/PlayerProvider';
 
 export default function HeroSlider({ tracks }) {
     const [index, setIndex] = useState(0);
+
+    // use player context
+    const { playTrack } = usePlayer();
 
     // check if track length is not 0
     if (!tracks || tracks.length === 0) {
@@ -72,7 +76,8 @@ export default function HeroSlider({ tracks }) {
 
                 {/* === Action Buttons === */}
                     <div className="flex gap-4 mt-5">
-                        <button className="flex-1 py-2.5 rounded-lg border border-graphite-frame bg-night-slate hover:bg-dark-matter transition text-sm text-text-primary">
+                        <button onClick={() => playTrack(currentTrack)}
+                        className="flex-1 py-2.5 rounded-lg border border-graphite-frame bg-night-slate hover:bg-dark-matter transition text-sm text-text-primary cursor-pointer ">
                             Preview
                         </button>
 

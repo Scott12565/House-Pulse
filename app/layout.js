@@ -2,6 +2,8 @@ import { Inter, Sora, DM_Sans, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/layout/NavBar";
 import Footer from "@/components/layout/Footer";
+import BottomPlayer from "@/components/player/BottomPlayer";
+import PlayerProvider from "@/components/player/PlayerProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -36,11 +38,16 @@ export default function RootLayout({ children }) {
       >
         {/* global subtle gradient background */}
         <div aria-hidden className="fixed inset-0 -z-10 bg-global-gradient pointer-events-none" />
-        <NavBar />
-        <main className="flex-1">
-          {children}
-        </main>
-        <Footer />
+        {/* wrap with the context provider */}
+        <PlayerProvider>
+          <NavBar />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
+
+          <BottomPlayer />
+        </PlayerProvider>
       </body>
     </html>
   );
