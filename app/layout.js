@@ -4,6 +4,7 @@ import NavBar from "@/components/layout/NavBar";
 import Footer from "@/components/layout/Footer";
 import BottomPlayer from "@/components/player/BottomPlayer";
 import PlayerProvider from "@/components/player/PlayerProvider";
+import QueueDrawer from "@/components/player/QueueDrawer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -47,6 +48,7 @@ export default function RootLayout({ children }) {
           <Footer />
 
           <BottomPlayer />
+          <QueueDrawer />
         </PlayerProvider>
       </body>
     </html>

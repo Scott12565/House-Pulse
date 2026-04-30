@@ -1,11 +1,16 @@
 'use client'
 import Image from 'next/image';
 import Link from 'next/link'
-import { Play, Heart, ShoppingCart } from 'lucide-react';
+import { Play, Heart, ShoppingCart, Pause } from 'lucide-react';
 import Container from '@/components/layout/Container'
+import { usePlayer } from '../player/PlayerProvider';
 
 export default function FeaturedTracks({ tracks }) {
+  const { playTrack, isPlaying, currentTrack } = usePlayer();
 
+  const isThisTrackPlaying = (track) => {
+    return isPlaying && currentTrack?._id === track._id;
+  };
   if (!tracks) return (
     <div className="text-center font-medium text-text-primary">
       <h2 className="text-2xl">No tracks available</h2>
@@ -44,8 +49,12 @@ export default function FeaturedTracks({ tracks }) {
                 {/* === Overlay === */}
                 <div className="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition duration-300 flex items-center justify-center" aria-hidden="false">
                   <div className="flex gap-4">
-                    <button type="button" aria-label={`Play preview for ${track.title}`} className="bg-text-primary/90 text-ink-black p-3 rounded-full hover:opacity-90">
-                      <Play size={20} className='transition-transform duration-200' />
+                    <button 
+                    onClick={() => playTrack(track, tracks)}
+                    type="button" aria-label={`Play preview for ${track.title}`} className="bg-text-primary/90 text-ink-black p-3 rounded-full hover:opacity-90">
+                     {isThisTrackPlaying(track) ? ( 
+                      <Pause size={20} className='transition-transform duration-200' /> 
+                      ) : ( <Play size={20} className='transition-transform duration-200' />)}
                     </button>
                     <button type="button" aria-label={`Like ${track.title}`} className="bg-text-primary/90 text-ink-black p-3 rounded-full hover:opacity-90">
                       <Heart size={20} className='transition-transform duration-200' />

@@ -76,7 +76,7 @@ export default function HeroSlider({ tracks }) {
 
                 {/* === Action Buttons === */}
                     <div className="flex gap-4 mt-5">
-                        <button onClick={() => playTrack(currentTrack)}
+                        <button onClick={() => playTrack(currentTrack, tracks)}
                         className="flex-1 py-2.5 rounded-lg border border-graphite-frame bg-night-slate hover:bg-dark-matter transition text-sm text-text-primary cursor-pointer ">
                             Preview
                         </button>
