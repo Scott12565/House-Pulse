@@ -13,7 +13,7 @@ const PlayerProvider = ({ children }) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
-    const [volume, setVolume] = useState(1); // 0 to 1
+    const [volume, setVolume] = useState(1); // 0 = mute to 1 = unmute
     const [isMuted, setIsMuted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isQueueOpen, setIsQueueOpen] = useState(false);

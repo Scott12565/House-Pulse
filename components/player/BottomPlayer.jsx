@@ -172,12 +172,18 @@ export default function BottomPlayer() {
                         <button onClick={nextTrack}><SkipForwardIcon size={20} /></button>
                     </div>
 
-                    <div
-                        onMouseDown={handleMouseDown}
-                        onMouseMove={handleMouseMove}
-                        className="w-full h-[5px] bg-white/30 rounded cursor-pointer"
-                    >
-                        <div className="h-full bg-yellow-400" style={{ width: `${progress}%` }} />
+                    <div className="flex items-center gap-2 w-full">
+                        <span className="text-xs">{formatTime(currentTime)}</span>
+
+                        <div
+                            onMouseDown={handleMouseDown}
+                            onMouseMove={handleMouseMove}
+                            className="flex-1 h-[5px] bg-white/30 rounded cursor-pointer"
+                        >
+                            <div className="h-full bg-yellow-400" style={{ width: `${progress}%` }} />
+                        </div>
+
+                        <span className="text-xs">{formatTime(duration)}</span>
                     </div>
                 </div>
 
