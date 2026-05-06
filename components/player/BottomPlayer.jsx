@@ -16,9 +16,13 @@ import {
 import Image from "next/image";
 import { usePlayer } from "./PlayerProvider";
 import { useEffect, useState } from "react";
+import { useCart } from "@/context/CartProvider";
 
 export default function BottomPlayer() {
     const [isDraging, setIsDraging] = useState(false);
+    
+    // import cart functions from context
+    const { cartItems, addToCart, RemoveFromCart } = useCart();
 
     const {
         currentTrack,
@@ -79,6 +83,7 @@ export default function BottomPlayer() {
         return () => window.removeEventListener("mouseup", stopDragging);
     }, []);
 
+    // the cart
     return (
         <div className="fixed bottom-0 left-0 right-0 bg-gray-900/90 backdrop-blur-md text-white z-50 shadow-lg">
 
