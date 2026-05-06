@@ -1,31 +1,38 @@
 'use client'
+
+import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { useCart } from '@/context/CartProvider';
 
 function NavBar() {
     const isLoggedIn = true;
     const [isOpen, setIsOpen] = useState(false);
 
+    const { cartCount } = useCart();
+
     return (
-        <nav className=" fixed top-0 left-0 right-0 z-50 h-16 sm:h-20 bg-ink-black/50 backdrop-blur-lg text-text-primary py-4 px-8 flex justify-between items-center w-full mx-auto border-b border-graphite-frame">
+        <nav className="fixed top-0 left-0 right-0 z-50 h-16 sm:h-20 bg-ink-black/50 backdrop-blur-lg text-text-primary py-4 px-8 flex justify-between items-center w-full mx-auto border-b border-graphite-frame">
+
             {/* Logo */}
             <div className="text-cyan-echo text-lg sm:text-2xl font-bold font-sora">
                 <Link href="/">House Pulse</Link>
             </div>
 
-            {/* === Desktop NavBar */}
-            {/* Middle links */}
+            {/* Desktop Nav */}
             <div className="hidden md:flex items-center space-x-6">
                 <div className="text-lg">
                     <span className="text-white/60">Search</span>
                 </div>
+
                 <Link
                     href="/explore"
                     className="text-lg hover:text-cyan-echo-hover transition duration-300"
                 >
                     Explore
                 </Link>
+
                 <Link
                     href="/library"
                     className="text-lg hover:text-cyan-echo-hover transition duration-300"
@@ -38,16 +45,23 @@ function NavBar() {
             <div className="hidden md:flex items-center space-x-6">
                 {isLoggedIn ? (
                     <>
+                        {/* Cart */}
                         <Link
                             href="/cart"
-                            className="text-lg hover:text-cyan-echo-hover transition duration-300"
+                            className="relative hover:text-cyan-echo-hover transition duration-300"
                         >
-                            Cart
+                            <ShoppingCart size={25} />
+
+                            {cartCount > 0 && (
+                                <span className="absolute -top-2 -right-2 min-w-[18px] h-[18px] flex items-center justify-center bg-red-500 text-white text-[10px] font-bold rounded-full px-1">
+                                    {cartCount > 9 ? "9+" : cartCount}
+                                </span>
+                            )}
                         </Link>
 
-                        {/* Profile dropdown */}
+                        {/* Profile */}
                         <div className="relative group">
-                            <span className="text-lg hover:text-cyan-echo-hover transition duration-800 cursor-pointer">
+                            <span className="text-lg hover:text-cyan-echo-hover transition duration-300 cursor-pointer">
                                 Profile
                             </span>
 
@@ -58,18 +72,21 @@ function NavBar() {
                                 >
                                     Profile
                                 </Link>
+
                                 <Link
                                     href="/orders"
                                     className="block px-4 py-2 hover:text-cyan-echo-hover"
                                 >
                                     Orders
                                 </Link>
+
                                 <Link
                                     href="/settings"
                                     className="block px-4 py-2 hover:text-cyan-echo-hover"
                                 >
                                     Settings
                                 </Link>
+
                                 <button className="w-full text-left px-4 py-2 hover:text-cyan-echo-hover">
                                     Logout
                                 </button>
@@ -84,6 +101,7 @@ function NavBar() {
                         >
                             Login
                         </Link>
+
                         <Link
                             href="/signup"
                             className="text-lg hover:text-cyan-echo-hover transition duration-300"
@@ -94,63 +112,75 @@ function NavBar() {
                 )}
             </div>
 
-            {/* === Mobile Devices === */}
-                {/* Hamburger menu */}
-            <button className="md:hidden flex items-center space-x-6 border border-graphite-frame rounded-lg px-2 py-1 "
-            
-            onClick={() => setIsOpen(!isOpen)}>
-                {isOpen ? (<FaTimes size={20} color="graphite-frame" />) : (<FaBars size={20} />)}
+            {/* Mobile Menu Button */}
+            <button
+                className="md:hidden flex items-center border border-graphite-frame rounded-lg px-2 py-1"
+                onClick={() => setIsOpen(!isOpen)}
+            >
+                {isOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
             </button>
 
             {/* Mobile Menu */}
-            {
-                isOpen && (
-                    <div className=" w-2/3 absolute top-[66px] right-5 shadow-md rounded-md p-4 shadow-lg z-10 py-4 px-4 bg-shadow-line border border-graphite-frame">
-                        <div className="w-full hover:text-cyan-echo-hover">
-                            <span className="">Search</span>
-                        </div>
+            {isOpen && (
+                <div className="w-2/3 absolute top-[66px] right-5 rounded-md p-4 shadow-lg z-10 bg-shadow-line border border-graphite-frame">
 
-                        <div className="space-y-4 mt-4 flex flex-col">
-                            <Link href='/explore' className=" hover:text-cyan-echo-hover transition duration-300" onClick={() => setIsOpen(false)}>Explore</Link>
-                            <Link href='/library' className="w-full hover:text-cyan-echo-hover transition duration-300" onClick={() => setIsOpen(false)}>Library</Link>
-                        </div>
-
-                        <div className="h-px bg-graphite-frame my-2" />
-
-                        {
-                            isLoggedIn ? (
-                                <div className="text-lg space-y-4 mt-2 flex flex-col">
-                                    <Link href='/cart' className="w-full hover:text-cyan-echo-hover transition duration-300" onClick={() => setIsOpen(false)}>Cart</Link>
-                                    <Link href='/settings' className="w-full hover:text-cyan-echo-hover transition duration-300" onClick={() => setIsOpen(false)}>Settings</Link>
-                                    <button
-                                        className="text-left py-2 hover:text-cyan-echo-hover transition duration-300"
-                                        onClick={() => setIsOpen(false)}
-                                    >
-                                        Logout
-                                    </button>
-                                </div>
-                            ) : (
-                                <div className="text-lg space-y-4 mt-2 flex flex-col">
-                                    <Link
-                                        href="/login"
-                                        className=" hover:text-cyan-echo-hover transition"
-                                        onClick={() => setIsOpen(false)}
-                                    >
-                                        Login
-                                    </Link>
-                                    <Link
-                                        href="/signup"
-                                        className=" hover:text-cyan-echo-hover transition"
-                                        onClick={() => setIsOpen(false)}
-                                    >
-                                        Sign Up
-                                    </Link>
-                                </div>
-                            )
-                        }
+                    <div className="w-full hover:text-cyan-echo-hover">
+                        <span>Search</span>
                     </div>
-                )
-            }
+
+                    <div className="space-y-4 mt-4 flex flex-col">
+                        <Link href='/explore' onClick={() => setIsOpen(false)}>
+                            Explore
+                        </Link>
+
+                        <Link href='/library' onClick={() => setIsOpen(false)}>
+                            Library
+                        </Link>
+                    </div>
+
+                    <div className="h-px bg-graphite-frame my-2" />
+
+                    {isLoggedIn ? (
+                        <div className="space-y-4 mt-2 flex flex-col">
+
+                            <Link
+                                href='/cart'
+                                onClick={() => setIsOpen(false)}
+                                className="flex items-center justify-between"
+                            >
+                                <span>Cart</span>
+
+                                {cartCount > 0 && (
+                                    <span className="bg-red-500 text-white text-xs px-2 py-[2px] rounded-full">
+                                        {cartCount > 9 ? "9+" : cartCount}
+                                    </span>
+                                )}
+                            </Link>
+
+                            <Link href='/settings' onClick={() => setIsOpen(false)}>
+                                Settings
+                            </Link>
+
+                            <button
+                                className="text-left py-2 hover:text-cyan-echo-hover"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                Logout
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="space-y-4 mt-2 flex flex-col">
+                            <Link href="/login" onClick={() => setIsOpen(false)}>
+                                Login
+                            </Link>
+
+                            <Link href="/signup" onClick={() => setIsOpen(false)}>
+                                Sign Up
+                            </Link>
+                        </div>
+                    )}
+                </div>
+            )}
         </nav>
     );
 }

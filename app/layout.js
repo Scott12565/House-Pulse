@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import BottomPlayer from "@/components/player/BottomPlayer";
 import PlayerProvider from "@/components/player/PlayerProvider";
 import QueueDrawer from "@/components/player/QueueDrawer";
+import CartProvider from "@/context/CartProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -40,6 +41,7 @@ export default function RootLayout({ children }) {
         {/* global subtle gradient background */}
         <div aria-hidden className="fixed inset-0 -z-10 bg-global-gradient pointer-events-none" />
         {/* wrap with the context provider */}
+        <CartProvider>
         <PlayerProvider>
           <NavBar />
           <main className="flex-1">
@@ -50,6 +52,7 @@ export default function RootLayout({ children }) {
           <BottomPlayer />
           <QueueDrawer />
         </PlayerProvider>
+        </CartProvider>
       </body>
     </html>
   );
