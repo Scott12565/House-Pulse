@@ -6,6 +6,7 @@ import BottomPlayer from "@/components/player/BottomPlayer";
 import PlayerProvider from "@/components/player/PlayerProvider";
 import QueueDrawer from "@/components/player/QueueDrawer";
 import CartProvider from "@/context/CartProvider";
+import CartFeedback from "@/components/cart/CartFeedback";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -45,6 +46,7 @@ export default function RootLayout({ children }) {
         <PlayerProvider>
           <NavBar />
           <main className="flex-1">
+            <CartFeedback />
             {children}
           </main>
           <Footer />
