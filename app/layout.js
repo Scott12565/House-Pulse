@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
         <CartProvider>
         <PlayerProvider>
           <NavBar />
-          <main className="flex-1">
+          <main className="flex-1 ">
             <CartFeedback />
             {children}
           </main>
