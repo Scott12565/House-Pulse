@@ -13,7 +13,7 @@ function NavBar() {
     const { cartCount } = useCart();
 
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 h-16 sm:h-20 bg-ink-black/50 backdrop-blur-lg text-text-primary py-4 px-8 flex justify-between items-center w-full mx-auto border-b border-graphite-frame">
+        <nav className="fixed top-0 left-0 right-0 z-50 h-20 bg-ink-black/50 backdrop-blur-lg text-text-primary px-8 flex justify-between items-center border-b border-graphite-frame">
 
             {/* Logo */}
             <div className="text-cyan-echo text-lg sm:text-2xl font-bold font-sora">

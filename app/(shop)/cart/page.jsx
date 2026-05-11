@@ -1,176 +1,216 @@
 'use client';
 
-import Image from "next/image";
-import { useState } from "react";
-import { useCart } from "@/context/CartProvider";
-import { usePlayer } from "@/components/player/PlayerProvider";
-import { Play, Pause, Heart, Trash2 } from "lucide-react";
+import Image from 'next/image';
 
-export default function CartPage() {
-    const { cartItems, removeFromCart, clearCart } = useCart();
-    const { playTrack, isPlaying, currentTrack } = usePlayer();
-
-    const [likedItems, setLikedItems] = useState({});
-
-    const totalPrice = cartItems.reduce((acc, item) => acc + item.priceZar, 0);
-
-    const isTrackPlaying = (track) => {
-        return isPlaying && currentTrack?._id === track._id;
-    };
-
-    const toggleLike = (id) => {
-        setLikedItems((prev) => ({
-            ...prev,
-            [id]: !prev[id]
-        }));
-    };
-
-    if (cartItems.length === 0) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-ink-black text-text-primary pt-24 px-6">
-                <div className="text-center">
-                    <h2 className="text-3xl font-semibold mb-2">Your cart is empty</h2>
-                    <p className="text-text-muted">Add some tracks to get started</p>
-                </div>
-            </div>
-        );
-    }
-
+export default function CheckoutPage() {
     return (
-        <div className="min-h-screen bg-ink-black text-text-primary pt-24 px-4 sm:px-6 md:px-12 pb-10">
+        <main className="min-h-screen bg-[#070B14] text-white pt-32">
 
-            {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-                <div>
-                    <h1 className="text-3xl sm:text-4xl font-bold">Your Cart</h1>
-                    <p className="text-text-muted text-sm mt-1">
-                        Your selected tracks
+            {/* Container */}
+            <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+
+                {/* Heading */}
+                <div className="mb-8">
+                    <h1 className="text-3xl sm:text-4xl font-bold">
+                        Checkout
+                    </h1>
+
+                    <p className="text-gray-400 mt-2 text-sm sm:text-base">
+                        Complete your purchase and get instant access to your music.
                     </p>
                 </div>
 
-                <button
-                    onClick={clearCart}
-                    className="text-sm text-red-400 hover:text-red-300 transition self-start sm:self-auto"
-                >
-                    Clear Cart
-                </button>
-            </div>
+                {/* Layout */}
+                <div className="grid grid-cols-1 xl:grid-cols-[1fr_340px] gap-6">
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+                    {/* LEFT SIDE */}
+                    <div className="space-y-5">
 
-                {/* LEFT - ITEMS */}
-                <div className="lg:col-span-2 space-y-4">
+                        {/* Contact */}
+                        <div className="bg-[#0F172A] border border-white/10 rounded-2xl p-5">
 
-                    {cartItems.map((item) => {
-                        const liked = likedItems[item._id];
-                        const playing = isTrackPlaying(item);
+                            <h2 className="text-xl font-semibold mb-5">
+                                Contact Information
+                            </h2>
 
-                        return (
-                            <div
-                                key={item._id}
-                                className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition"
-                            >
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-                                {/* Cover */}
-                                <div className="relative w-full sm:w-20 h-40 sm:h-20 rounded-xl overflow-hidden">
-                                    <Image
-                                        src={item.coverImageUrl}
-                                        alt={item.title}
-                                        fill
-                                        className="object-cover"
-                                    />
-                                </div>
+                                <input
+                                    type="text"
+                                    placeholder="Full Name"
+                                    className="w-full bg-[#111827] border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-cyan-400 transition"
+                                />
 
-                                {/* Info */}
-                                <div className="flex-1 min-w-0">
-                                    <h3 className="text-lg font-semibold truncate">
-                                        {item.title}
-                                    </h3>
-                                    <p className="text-sm text-text-muted truncate">
-                                        {item.artistName}
-                                    </p>
-                                </div>
+                                <input
+                                    type="email"
+                                    placeholder="Email Address"
+                                    className="w-full bg-[#111827] border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-cyan-400 transition"
+                                />
 
-                                {/* Actions */}
-                                <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
-
-                                    {/* Play */}
-                                    <button
-                                        onClick={() => playTrack(item, cartItems)}
-                                        className={`w-10 h-10 flex items-center justify-center rounded-full border transition
-                                            ${playing
-                                                ? "bg-cyan-echo text-black border-cyan-echo"
-                                                : "bg-white/10 border-white/10 hover:bg-white/20"
-                                            }
-                                        `}
-                                    >
-                                        {playing ? <Pause size={18} /> : <Play size={18} />}
-                                    </button>
-
-                                    {/* Heart */}
-                                    <button
-                                        onClick={() => toggleLike(item._id)}
-                                        className={`w-10 h-10 flex items-center justify-center rounded-full border transition
-                                            ${liked
-                                                ? "bg-red-500 text-white border-red-500"
-                                                : "bg-white/10 border-white/10 hover:bg-white/20"
-                                            }
-                                        `}
-                                    >
-                                        <Heart size={18} />
-                                    </button>
-
-                                    {/* Price */}
-                                    <span className="text-cyan-echo font-semibold">
-                                        R{item.priceZar}
-                                    </span>
-
-                                    {/* Remove */}
-                                    <button
-                                        onClick={() => removeFromCart(item._id)}
-                                        className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 border border-white/10 hover:bg-red-500 hover:border-red-500 transition"
-                                    >
-                                        <Trash2 size={16} />
-                                    </button>
-
-                                </div>
                             </div>
-                        );
-                    })}
+
+                        </div>
+
+                        {/* Download Package */}
+                        <div className="bg-[#0F172A] border border-white/10 rounded-2xl p-5">
+
+                            <h2 className="text-xl font-semibold mb-5">
+                                Download Package
+                            </h2>
+
+                            <div className="border border-cyan-400/30 bg-cyan-400/5 rounded-2xl p-5">
+
+                                <div className="flex items-center justify-between mb-4">
+                                    <h3 className="text-lg font-semibold">
+                                        Digital Download
+                                    </h3>
+
+                                    <span className="text-2xl font-bold text-cyan-400">
+                                        R299
+                                    </span>
+                                </div>
+
+                                <ul className="space-y-3 text-sm text-gray-300">
+
+                                    <li className="flex items-center gap-2">
+                                        ✓ High Quality MP3
+                                    </li>
+
+                                    <li className="flex items-center gap-2">
+                                        ✓ Instant Access
+                                    </li>
+
+                                    <li className="flex items-center gap-2">
+                                        ✓ Secure Download
+                                    </li>
+
+                                    <li className="flex items-center gap-2">
+                                        ✓ Lifetime Access
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                        {/* Payment */}
+                        <div className="bg-[#0F172A] border border-white/10 rounded-2xl p-5">
+
+                            <h2 className="text-xl font-semibold mb-5">
+                                Payment Method
+                            </h2>
+
+                            <div className="space-y-4">
+
+                                <input
+                                    type="text"
+                                    placeholder="Card Number"
+                                    className="w-full bg-[#111827] border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-cyan-400 transition"
+                                />
+
+                                <div className="grid grid-cols-2 gap-4">
+
+                                    <input
+                                        type="text"
+                                        placeholder="MM/YY"
+                                        className="w-full bg-[#111827] border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-cyan-400 transition"
+                                    />
+
+                                    <input
+                                        type="text"
+                                        placeholder="CVC"
+                                        className="w-full bg-[#111827] border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-cyan-400 transition"
+                                    />
+
+                                </div>
+
+                            </div>
+
+                            <button className="w-full mt-6 bg-cyan-400 text-black hover:bg-cyan-300 transition py-4 rounded-xl font-semibold">
+                                Continue To Payment
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    {/* RIGHT SIDE */}
+                    <aside className="bg-[#0F172A] border border-white/10 rounded-2xl p-5 h-fit xl:sticky xl:top-28">
+
+                        <h2 className="text-2xl font-semibold mb-5">
+                            Your Order
+                        </h2>
+
+                        {/* Track Item */}
+                        <div className="flex gap-4 border-b border-white/10 pb-5 mb-5">
+
+                            <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-gray-800">
+
+                                <Image
+                                    src="/track-cover.jpg"
+                                    alt="Track Cover"
+                                    fill
+                                    className="object-cover"
+                                />
+
+                            </div>
+
+                            <div className="flex-1 min-w-0">
+
+                                <h3 className="font-semibold truncate">
+                                    Midnight Drive
+                                </h3>
+
+                                <p className="text-sm text-gray-400">
+                                    Prod. Kyro
+                                </p>
+
+                                <p className="text-sm text-cyan-400 mt-1">
+                                    Digital Download
+                                </p>
+
+                            </div>
+
+                            <p className="font-semibold whitespace-nowrap">
+                                R299
+                            </p>
+
+                        </div>
+
+                        {/* Totals */}
+                        <div className="space-y-4">
+
+                            <div className="flex justify-between text-sm text-gray-400">
+                                <span>Subtotal</span>
+                                <span>R299</span>
+                            </div>
+
+                            <div className="flex justify-between text-sm text-gray-400">
+                                <span>Service Fee</span>
+                                <span>R10</span>
+                            </div>
+
+                            <div className="border-t border-white/10 pt-4 flex justify-between text-lg font-semibold">
+                                <span>Total</span>
+                                <span className="text-cyan-400">
+                                    R309
+                                </span>
+                            </div>
+
+                        </div>
+
+                        {/* Security Box */}
+                        <div className="mt-6 bg-white/5 border border-white/10 rounded-xl p-4 text-sm text-gray-300">
+                            Your payment information is encrypted and secure.
+                        </div>
+
+                    </aside>
 
                 </div>
 
-                {/* RIGHT - SUMMARY */}
-                <div className="h-fit p-5 sm:p-6 rounded-2xl bg-white/5 border border-white/10">
+            </section>
 
-                    <h2 className="text-xl font-semibold mb-4">Summary</h2>
-
-                    <div className="flex justify-between text-sm text-text-muted mb-2">
-                        <span>Items</span>
-                        <span>{cartItems.length}</span>
-                    </div>
-
-                    <div className="flex justify-between text-sm text-text-muted mb-6">
-                        <span>Total</span>
-                        <span className="text-text-primary font-medium">
-                            R{totalPrice}
-                        </span>
-                    </div>
-
-                    <button className="w-full bg-cyan-echo text-black py-3 rounded-lg font-semibold hover:bg-cyan-echo-hover transition">
-                        Checkout
-                    </button>
-
-                    <button
-                        onClick={clearCart}
-                        className="w-full mt-3 text-sm text-red-400 hover:text-red-300 transition"
-                    >
-                        Clear Cart
-                    </button>
-
-                </div>
-
-            </div>
-        </div>
+        </main>
     );
 }
