@@ -62,12 +62,47 @@ export default function Checkout() {
   };
 
   // Checkout Handler
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     const isValid = validateCheckout();
 
     if (!isValid) return;
 
-    console.log('Proceeding to payment...');
+    if(!cartItems.length === 0) return;
+
+    // payment processing logic
+    try {
+      // fetch data
+      const res = await fetch('api/payfast/create-payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          email: formData.email,
+          items: cartItems.map(track => ({
+            trackId: track._id,
+            title: track.title,
+            artistName: track.artistName,
+            price: Number(track.priceZar).toFixed(2)
+          })),
+          subtotal,
+          serviceFee,
+          total
+        })
+      });
+
+      const data = await res.json();
+
+      if(data.payFastURL) {
+        window.location.href = data.payFastURL;
+      } else {
+        console.log('No payfast URL returned');
+      }
+    } catch (error) {
+      console.error('Error occurred while processing payment:', error);
+    }
   };
 
   return (
